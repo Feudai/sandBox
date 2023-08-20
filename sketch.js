@@ -4,16 +4,16 @@ let xPoints = [];
 let yPoints = [];
 
 let flees = [];
-let nFlee = 4; //min=3
+let nFlee = 4; //Number of flee points (nb of peaks, must be >=3);
 
-let surfaceSqrt = 700;
+const surfaceSqrt = 700; //size of r where screen is (r*r);
 
 let cnt = 0;
-let jump = 4000;
-let maxP = 100000000;
+const jump = 4000;//How many times do we execute the algo per frame;
+const maxP = 100000000;//Maximum of points on the screen;
 
 let beg = 0;
-let opacity = 5;
+const opacity = 5;// in %
 
 let p, q;
 
@@ -24,11 +24,14 @@ function setup() {
   background(0);
   translate(width / 2, height / 2);
 
+  //divide the space in [nFlee] corners
   for (var j = 0; j <= nFlee; j++) {
     addPoint();
   }
   
   partition();
+  
+  //giving a first point that is inside the resultant polygon.
   firstP();
 
   stroke(255, 255, 255, opacity);
@@ -52,6 +55,7 @@ function draw() {
 
 function choose() {
   
+  //choose 1 random point, and 1 random flee, and put a point halfway. point(p,q);
   let r = round(random(flees.length));
   let index = round(random(cnt - 1));
   
